@@ -1,5 +1,5 @@
 # Copyright (c) 2026 Gabriel Mahia / AI Kung Fu LLC. MIT License.
-# afya-chw-ai — Community Health Worker AI Co-Pilot
+# afyanipoa — Community Health Worker AI Co-Pilot
 # Research basis:
 #   arXiv:2408.17216 "Democratizing AI in Africa: Federated Learning for Low-Resource Edge Devices" (2024)
 #   "Edge intelligence unleashed: deploying LLMs in resource-constrained environments" (2025)
@@ -13,7 +13,7 @@ import urllib.request
 import json
 
 st.set_page_config(
-    page_title="Afya CHW AI — Msaada wa Afya",
+    page_title="Afyanipoa — Msaada wa Afya",
     page_icon="🏥",
     layout="centered",
     initial_sidebar_state="collapsed",
@@ -30,7 +30,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown('<div class="title">🏥 Afya CHW AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="title">🏥 Afyanipoa — AI kwa CHW</div>', unsafe_allow_html=True)
 st.markdown(
     '<div class="sub">Msaada wa AI kwa Wahudumu wa Afya wa Jamii (CHW) '
     '<span class="demo-tag">DEMO — Si uamuzi wa daktari</span></div>',
@@ -194,7 +194,7 @@ Keep response concise — CHWs in the field need fast, clear guidance."""
             "system_instruction": {"parts": [{"text": system_prompt}]},
             "generation_config": {"temperature": 0.2, "max_output_tokens": 600}
         }
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={API_KEY}"
+        url = f"https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key={API_KEY}"
         req = urllib.request.Request(url, data=json.dumps(payload).encode(),
                                       method="POST", headers={"Content-Type": "application/json"})
         try:
@@ -223,4 +223,4 @@ with st.expander("📚 Maktaba ya Itifaki (Full Protocol Library)"):
         st.markdown(f"🚨 Peleka kwa: {', '.join(data['referral_triggers'])}")
         st.markdown("---")
 
-st.caption("🏥 afya-chw-ai · AI Kung Fu LLC · Research: arXiv:2408.17216 | WHO CHW Guidelines | Kenya MOH — DEMO data")
+st.caption("🏥 afyanipoa · AI Kung Fu LLC · Research: arXiv:2408.17216 | WHO CHW Guidelines | Kenya MOH — DEMO data")
