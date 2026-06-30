@@ -1,6 +1,6 @@
 # 🏥 Afya CHW AI
 
-**First Swahili-language AI decision-support tool for Kenya's 105,000+ Community Health Workers.**
+Swahili-language AI decision-support tool for Community Health Workers — embeds Kenya MOH triage protocols for the 105,000+ CHWs operating across Kenya counties.
 
 Embedded clinical protocols (Kenya MOH + WHO) in Swahili. Works in low-bandwidth environments.
 Danger sign detection → referral triggers → immediate action → follow-up guidance.
