@@ -9,6 +9,8 @@
 # =============================================================================
 
 import streamlit as st
+import html
+import os
 import urllib.request
 import json
 
@@ -38,7 +40,16 @@ st.markdown(
 )
 
 # ── API Key ───────────────────────────────────────────────────────────────────
-API_KEY = st.secrets.get("GOOGLE_API_KEY") or st.secrets.get("GEMINI_API_KEY", "")
+def _secret(name):
+    """Read a Streamlit secret, falling back to the environment; never crash when no secrets file exists."""
+    try:
+        v = st.secrets.get(name)
+    except Exception:
+        v = None
+    return v or os.environ.get(name, "")
+
+
+API_KEY = _secret("GOOGLE_API_KEY") or _secret("GEMINI_API_KEY")
 if not API_KEY:
     st.warning(
         "⚠️ **Huduma hii bado haijaungwa.** / This service is not yet configured. "
@@ -194,13 +205,13 @@ Keep response concise — CHWs in the field need fast, clear guidance."""
             "system_instruction": {"parts": [{"text": system_prompt}]},
             "generation_config": {"temperature": 0.2, "max_output_tokens": 600}
         }
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key={API_KEY}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
         req = urllib.request.Request(url, data=json.dumps(payload).encode(),
-                                      method="POST", headers={"Content-Type": "application/json"})
+                                      method="POST", headers={"Content-Type": "application/json", "x-goog-api-key": API_KEY})
         try:
             with urllib.request.urlopen(req, timeout=30) as r:
                 resp = json.loads(r.read())
-            guidance = resp["candidates"][0]["content"]["parts"][0]["text"]
+            guidance = html.escape(resp["candidates"][0]["content"]["parts"][0]["text"])
 
             st.markdown("#### 📋 Mwongozo wa Kliniki (Clinical Guidance)")
             st.markdown(f'<div class="card">{guidance}</div>', unsafe_allow_html=True)
