@@ -200,12 +200,12 @@ Respond in this structure:
 Keep response concise — CHWs in the field need fast, clear guidance."""
 
         payload = {
-            "model": "gemini-3.5-flash",
+            "model": "gemini-3.8-flash",
             "contents": [{"parts": [{"text": f"CHW asks: {complaint}\nPatient age: {patient_age or 'unknown'}"}]}],
             "system_instruction": {"parts": [{"text": system_prompt}]},
             "generation_config": {"temperature": 0.2, "max_output_tokens": 600}
         }
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent"
         req = urllib.request.Request(url, data=json.dumps(payload).encode(),
                                       method="POST", headers={"Content-Type": "application/json", "x-goog-api-key": API_KEY})
         try:
